@@ -19,11 +19,21 @@ class navBar extends Component {
             <Link to="/home">
               <li>HOME</li>
             </Link>
+            <Link to="/singUp">
+              <li>singUp</li>
+            </Link>
+            <Link to="/logIn">
+              <li>logIn</li>
+            </Link>
+            <Link to="/Myprofile">
+              <li>Myprofile</li>
+            </Link>
             <Link to="/contactpage">
               <li>contact</li>
+
               <Link to="/chapters">
-              <li>chapters</li>
-            </Link>
+                <li>chapters</li>
+              </Link>
             </Link>
           </ul>
         </nav>

@@ -1,0 +1,17 @@
+.chapters_image {
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  margin: 38px;
+}
+.chapters_title {
+  padding-left: 78px;
+  color: black;
+
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.chapters_container {
+  width: 80%;
+  display: flex;
+  margin: 50px auto;
+}

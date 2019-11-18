@@ -1,0 +1,59 @@
+#register,
+#login {
+  width: 300px;
+  border: 1px solid #d6d7da;
+  padding: 0px 15px 15px 15px;
+  border-radius: 25px;
+  font-family: arial;
+  line-height: 16px;
+  color: #333333;
+  font-size: 14px;
+  background: #ffffff;
+  margin: 100px auto;
+}
+
+form label,
+form input {
+  display: block;
+  margin-bottom: 10px;
+  width: 90%;
+}
+
+form input {
+  padding: 10px;
+  border: solid 1px #bdc7d8;
+}
+
+.button {
+  background-color: #00bfff;
+
+  border-color: #3ac162;
+  font-weight: bold;
+  margin-left: 15px;
+  padding: 15px 15px;
+  color: #ffffff;
+} /*
+let data = {
+      ID: "25/11/2019",
+      email: this.state.email,
+      user_name: this.state.user_name,
+       password: this.state. password,
+      result_id: 6
+    };
+    console.log(data);
+    let qu = await fetch(`http://localhost:8001/api/users`, {
+      method: "post",
+      body: data
+    });
+    let respone = await qu.json();
+    console.log(respone);
+} */
+.errorMsg {
+  color: #cc0000;
+  margin-bottom: 12px;
+}
+
+.sucessMsg {
+  color: #6b8e23;
+  margin-bottom: 10px;
+}

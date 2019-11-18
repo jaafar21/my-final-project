@@ -1,31 +1,33 @@
 import React, { Component } from "react";
 import MainQuiz from "./MainQuiz.js";
-// import { Link } from "react-router-dom";
-// import { isTemplateElement } from "@babel/types";
+
 class Exam extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      Exams: [],
+      questions: [],
       viewMode: false
     };
   }
 
   async componentDidMount() {
-    this.getContactsList();
+    this.getExamQuestions(this.props.chapter_id);
   }
 
-  getContactsList = async () => {
+  getExamQuestions = async chapter_id => {
     try {
-      const response = await fetch("http://localhost:8001/api/questions");
-      const Exams = await response.json();
+      const response = await fetch(
+        `http://localhost:8001/api/chapters/${chapter_id}/exams`
+      );
+      const questions = await response.json();
       //if the answer i recieve is successful
-
-      this.setState({ Exams: Exams.data });
-      console.log(this.state.Exams, "bs");
+      console.log("questions", questions);
+      this.setState({ questions: questions.data });
+      console.log(this.state.questions, "bs");
     } catch (err) {
+      debugger;
       console.log(err);
-      throw new Error("fetching users failed");
+      throw new Error("fetching exam questions failed");
     }
   };
   render() {
@@ -34,20 +36,11 @@ class Exam extends React.Component {
         <button
           onClick={() => this.setState({ viewMode: !this.state.viewMode })}
         >
-          View Exam
+          START EXAM
         </button>
-        {this.state.viewMode ? <MainQuiz /> : null}
-        <div>
-          {this.state.Exams.map(item => (
-            <div>
-              <br></br>
-              <br></br>
-              <h1>chapters_exam</h1>
-              {item.question_text}
-              {item.answer}
-            </div>
-          ))}
-        </div>
+        {this.state.viewMode ? (
+          <MainQuiz questions={this.state.questions} />
+        ) : null}
       </div>
     );
   }

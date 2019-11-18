@@ -3,16 +3,20 @@ import NavBar from "./component/navBar.js";
 import { Route, Switch, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import "./App.css";
-import Chapter_page from "./component/Chapter_page.js";
-import quizData from "./component/quizData.js";
-import MainQuiz from "./component/MainQuiz.js";
-import ContactPage from "./pages/Contact/ContactPage";
-import Chapters from "./component/chapters.js";
+import Main_topics from "./component/Topics_page";
+import Myprofile from "./pages/Myprofile/Myprofile.js";
+
+import Ourstory from "./pages/ourstory/ContactPage";
+import HomePage from "./pages/Home/HomePage";
+
+import Chapters from "./pages/Chapters/Chapters.js";
 import Topics from "./component/Topics.js";
 import Topics_data from "./component/topics_data.js";
 // import Main_topics from "./component/Topics_page";
 
-import Exam from "./component/Chapters_exam.js";
+import LogIn from "./pages/logInPage/logIn.js";
+import SingUp from "./pages/singup_page/singUp";
+
 // import Container from "./pages/Chapter_page/chapter_container";
 
 // import Exam from "./component/Chapters_exam.js";
@@ -51,9 +55,15 @@ class App extends React.Component {
         <br></br>
         <Switch>
           <Route
-            path="/contactpage"
+            path="/Myprofile"
             render={() => {
-              return <ContactPage />;
+              return <Myprofile />;
+            }}
+          />
+          <Route
+            path="/Ourstory"
+            render={() => {
+              return <Ourstory />;
             }}
           />
           <Route
@@ -70,6 +80,7 @@ class App extends React.Component {
           />
           <Route
             path="/chapters"
+            exact
             render={props => {
               return <Chapters {...props} />;
             }}
@@ -77,13 +88,26 @@ class App extends React.Component {
           <Route
             path="/chapters/:chapter_id"
             render={props => {
-              return <Chapters {...props} />;
+              return <Main_topics {...props} />;
             }}
           />
           <Route
-            path="/chapters/:chapter_id/"
+            path="/home"
+            exact={true}
             render={props => {
-              return <Chapters {...props} />;
+              return <HomePage {...props} />;
+            }}
+          />
+          <Route
+            path="/login"
+            render={props => {
+              return <LogIn {...props} />;
+            }}
+          />
+          <Route
+            path="/singUp"
+            render={props => {
+              return <SingUp {...props} />;
             }}
           />
           {/* <Route
@@ -94,10 +118,13 @@ class App extends React.Component {
           /> */}
           //***** */call clases****//
         </Switch>
+
         {/* {/* <Exam /> */}
         {/* <Topics /> */}
         {/* <Chapter_page /> */}
-        <Exam />
+        {/* <Exam /> */}
+        {/* <MainQuiz /> */}
+
         {/* <Main_topics /> */}
       </div>
     );

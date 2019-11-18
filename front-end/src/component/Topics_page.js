@@ -1,119 +1,134 @@
 import React from "react";
-import {Topics} from "./Topics.js"
+import { Topics } from "./Topics.js";
+import Exam from "./Chapters_exam.js";
+import MainQuiz from "./MainQuiz.js";
+
 class Main_topics extends React.Component {
-  state = {
-    currentTopic: 0,
-    Topic : [],
-    mytopic: [],
-    disabled: true,
-    isEnd: false,
-    
+  constructor(props) {
+    super(props);
+    this.state = {
+      chapter_id: this.props.match.params.chapter_id,
+      chapter: null,
+      currentTopic: 0,
+      topics: [],
+      disabled: true,
+      isEnd: false
+      // isTrue: true
+    };
+  }
+
+  async componentDidMount() {
+    this.getTopicsList();
+    this.getChapterInfo();
+  }
+
+  getChapterInfo = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8001/api/chapters/${this.props.match.params.chapter_id}`
+      );
+
+      const chapter = await response.json();
+      //if the answer i recieve is successful
+
+      this.setState({ chapter: chapter.data });
+      console.log(this.state.chapter, "helllo");
+    } catch (err) {
+      console.log(err);
+      throw new Error("fetching chapter failed");
+    }
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.currentTopic !== prevState.currentTopic) {
-      this.setState(() => {
-        return {
-          disabled: true,
-          Topic: Topics[this.state.currentTopic].Topic,
-        };
-      });
-    }
-  }
-    componentDidMount() {
-    this.loadTopic();
-  }
-  nextTopicHandler = () => {
-    // console.log('test')
-    const { mytopic, Topic } = this.state;
+  getTopicsList = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8001/api/chapters/${this.state.chapter_id}/topics`
+      );
 
-    if (mytopic === Topic) {
-      let Topic = this.state.Topic + 1;
-     
-      this.setState({
-        Topic,
-        mytopic: ""
-      });
-      let currentTopic = this.state.currentTopic + 1;
+      console.log(this.state.chapter_id);
+      const topics = await response.json();
+      //if the answer i recieve is successful
+
+      this.setState({ topics: topics.data });
+      console.log(this.state.topics, "TOPICS");
+    } catch (err) {
+      console.log(err);
+      throw new Error("fetching Topics failed");
+    }
+  };
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.currentTopic !== prevState.currentTopic) {
+  //     this.setState(() => {
+  //       return {
+  //         disabled: true,
+  //         topics: this.state.topics[this.state.currentTopic].Topic
+  //       };
+  //     });
+  //   }
+  // }
+
+  nextTopicHandler = () => {
+    const { mytopic, topics } = this.state;
+
+    let currentTopic = this.state.currentTopic + 1;
     this.setState({
       currentTopic
     });
   };
 
-//   componentDidUpdate(prevProps, prevState) {
-//     if (this.state.currentTopic !== prevState.currentTopic) {
-//       this.setState(() => {
-//         return {
-//           disabled: true,
-//           Topic: Topics[this.state.currentTopic].Topic
-//        };
-//       });
-//     }
-//   }
-  
-   checkTopic = Topic => {
-    this.setState({ mytopic: Topic, disabled: false });
-  };
   finishHandler = () => {
-    const { mytopic, Topic } = this.state;
-
-    // if (myAnswer === answer) {
-    //   let score = this.state.score + 1;
-    //   console.log(score);
-    //   this.setState({
-    //     score,
-    //     myAnswer: ""
-    //   });
-    // }
-    if (this.state.currentTopic === Topic.length - 1) {
+    if (this.state.currentTopic === this.state.topics.length - 1) {
       this.setState({
         isEnd: true
       });
     }
   };
-   render() {
-    console.log(this.state);
-    const { Topic, mytopic, currentTopic, isEnd } = this.state;
 
+  render() {
+    const { topics, currentTopic, isEnd } = this.state;
+    const myTopic = this.state.topics[currentTopic];
+    const ChapterInfo = chapter => {
+      return <>{chapter !== null ? <div>{chapter.chapter_title}</div> : ""}</>;
+    };
+    console.log("topics", topics, currentTopic);
     if (isEnd) {
       return (
-        <div className="result">
-          <p>
-            <ul>
-              {Topics.map((item, index) => (
-                <li key={index}>{item.Topics}</li>
-              ))}
-            </ul>
-          </p>
+        <div>
+          {this.props.match.params.chapter_id}
+          <ChapterInfo chapter={this.state.chapter} />
+          <Exam chapter_id={this.props.match.params.chapter_id} />
         </div>
       );
     } else {
       return (
-        <div className="App">
-          <h1>{this.state.Topic} </h1>
-          
-              onClick={() => this.checkTopic(Topic)}
-            >
-              {Topic}
-            
-          ))}
-          {currentTopic < Topics.length - 1 && (
-            <button
-              className="ui inverted button"
-              disabled={this.state.disabled}
-              onClick={() => this.nextTopicHandler()}
-            >
-              Next
-            </button>
+        <div>
+          <ChapterInfo chapter={this.state.chapter} />
+
+          {myTopic !== undefined ? (
+            <div>
+              <div>
+                {" "}
+                <img
+                  width="200px"
+                  height="100px"
+                  src={`http://localhost:8001/${myTopic.image}`}
+                />
+              </div>{" "}
+              {myTopic.discription}
+            </div>
+          ) : (
+            "ss"
           )}
-          {/* //adding a finish button */}
-          {currentTopic === Topic.length - 1 && (
-            <button className="ui inverted button" onClick={this.finishHandler}>
-              Finish
-            </button>
+          {currentTopic < topics.length - 1 ? (
+            <button onClick={() => this.nextTopicHandler()}>Next</button>
+          ) : (
+            <button onClick={this.finishHandler}>exam</button>
           )}
         </div>
       );
     }
-   }}}
+  }
+}
+
 export default Main_topics;
