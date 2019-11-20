@@ -1,0 +1,38 @@
+/* .result-container {
+  display: grid;
+
+  grid-template-columns: auto auto auto;
+
+  padding: 10px;
+}
+.grid-item {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 100px;
+  padding: 20px;
+
+  font-size: 20px;
+  text-align: center;
+
+} */
+.result-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 30px auto 0 auto;
+  width: 90%;
+}
+.grid-item {
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+  margin: 15px auto 0 auto;
+  text-align: center;
+  border: 2px solid yellowgreen;
+  height: 100px;
+}
+.mylogo {
+  position: absolute;
+  right: 20px;
+  width: 56px;
+  top: 0px;
+}

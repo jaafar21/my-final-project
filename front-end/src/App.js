@@ -51,6 +51,7 @@ class App extends React.Component {
     return (
       <div>
         <NavBar />
+
         {/* <Container /> */}
         <br></br>
         <Switch>

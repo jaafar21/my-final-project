@@ -50,8 +50,6 @@ class Chapters extends React.Component {
   render() {
     return (
       <div>
-        <h1>chapters</h1>
-
         <div>
           {this.state.chapter.map(item => (
             <button onClick={() => this.getItemById(item.chapter_id)}>

@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-
+import { importDeclaration } from "@babel/types";
+import images1 from "./images1.jpg";
+import "./myprofile.css";
+import { wrap } from "module";
 class Myprofile extends React.Component {
   constructor(props) {
     super(props);
@@ -38,18 +41,47 @@ class Myprofile extends React.Component {
   render() {
     return (
       <div>
-        <ul>
+        <img className="mylogo" src={images1} />
+        <div
+          style={{
+            textAlign: "center",
+            margin: "auto",
+            backgroundColor: "purple",
+            height: 200,
+            width: 200,
+            borderRadius: 100,
+            marginBottom: 10
+          }}
+        >
+          <h2 style={{ textAlign: "center", paddingTop: 80 }}>
+            The score is : 25
+          </h2>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: wrap,
+            justifyContent: "space-around",
+            alignItems: "center"
+          }}
+        >
+          <button>Exam 1</button>
+
+          <button>Exam 2</button>
+          <button>Exam 3</button>
+        </div>
+        <div className="result-container">
           {this.state.score.map(item => (
-            <div>
-              <p>in : {this.state.chapter.map(item => item.chapter_title)}</p>
-              <h4>
+            <div className="grid-item">
+              <h1 className="result-title">
                 {" "}
-                in this date :{item.date} <br></br>your score is :{" "}
-              </h4>{" "}
-              ("{item.score}")<br></br>
+                you got in: {item.date}
+                <h2> ("{item.score}") points</h2>
+              </h1>
             </div>
           ))}
-        </ul>
+        </div>
       </div>
     );
   }

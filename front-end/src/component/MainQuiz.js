@@ -1,6 +1,6 @@
 import React from "react";
 import { async } from "q";
-
+import "./mainquiz.css";
 import { Link } from "react-router-dom";
 class MainQuiz extends React.Component {
   state = {
@@ -138,60 +138,59 @@ class MainQuiz extends React.Component {
       });
 
       return (
-        <div>
+        <div className="final-report">
           <h3> Final score is: {score} points </h3>
-          The correct answer's for the questions was
-          <form>
-            {this.props.questions.map((item, index) => (
-              <li key={index}>{item.answer}</li>
-            ))}
-            <Link to="/Myprofile">
-              <button>Myprofile</button>
-            </Link>{" "}
-          </form>
+          <Link to="/Myprofile">
+            <button className="mypofile-button">Myprofile</button>
+          </Link>{" "}
         </div>
       );
     } else {
       return (
-        <div>
-          <span>
+        <div className="container-exam">
+          <span className="remaining-guestion">
             {`Questions ${currentQuestion + 1}  out of ${
               this.props.questions.length
-            } remaining `}
+            }  `}
           </span>
-          <p>
-            {this.state.questions[this.state.currentQuestion].question_text}
-            {this.state.questions[this.state.currentQuestion].answer}
-            {this.state.myAnswer}
-
-            {this.state.score}
-          </p>
-          <ul>
-            <li
-              onClick={() =>
-                this.setState({ disabled: false, myAnswer: "options_1" })
-              }
-            >
-              {this.state.questions[this.state.currentQuestion].options_1}
-            </li>
-            <li
-              onClick={() =>
-                this.setState({ disabled: false, myAnswer: "options_2" })
-              }
-            >
-              {this.state.questions[this.state.currentQuestion].options_2}
-            </li>
-            <li
-              onClick={() =>
-                this.setState({ disabled: false, myAnswer: "options_3" })
-              }
-            >
-              {this.state.questions[this.state.currentQuestion].options_3}
-            </li>
-          </ul>
-
+          <div>
+            <h2 className="exam_title"> please select one option</h2>
+            <p className="questions_text">
+              {this.state.questions[this.state.currentQuestion].question_text}{" "}
+              ?:
+              {/* {this.state.questions[this.state.currentQuestion].answer} */}
+              {/* {this.state.myAnswer} */}
+              {/* {this.state.score} */}
+            </p>
+            <form className="questions_form">
+              <ol
+                onClick={() =>
+                  this.setState({ disabled: false, myAnswer: "options_1" })
+                }
+              >
+                1: {this.state.questions[this.state.currentQuestion].options_1}
+              </ol>
+              <ol
+                onClick={() =>
+                  this.setState({ disabled: false, myAnswer: "options_2" })
+                }
+              >
+                2: {this.state.questions[this.state.currentQuestion].options_2}
+              </ol>
+              <ol
+                onClick={() =>
+                  this.setState({ disabled: false, myAnswer: "options_3" })
+                }
+              >
+                3:
+                {this.state.questions[this.state.currentQuestion].options_3}
+              </ol>
+            </form>
+          </div>
+          <div></div>
           {currentQuestion < this.props.questions.length - 1 && (
             <button
+              className="next_but"
               disabled={this.state.disabled}
               onClick={() => this.nextQuestionHandler()}
             >

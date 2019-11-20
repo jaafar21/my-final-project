@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import MainQuiz from "./MainQuiz.js";
+import "./chapter_exam.css";
 
 class Exam extends React.Component {
   constructor(props) {
@@ -32,8 +33,9 @@ class Exam extends React.Component {
   };
   render() {
     return (
-      <div>
+      <div className="back">
         <button
+          className="start-button"
           onClick={() => this.setState({ viewMode: !this.state.viewMode })}
         >
           START EXAM

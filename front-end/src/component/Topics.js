@@ -70,10 +70,8 @@
 // }
 // export default Topics;
 import React, { Component } from "react";
-
+import "./topics.css";
 import { Link } from "react-router-dom";
-// import Topics from "./Topics.js";
-// import MainQuiz from "./MainQuiz.js";
 
 class Topics extends React.Component {
   constructor(props) {
@@ -119,13 +117,11 @@ class Topics extends React.Component {
   render() {
     return (
       <div>
-        <h1>topicssssssss</h1>
-
         <div>
           {this.state.Topic.map(item => (
             <button onClick={() => this.getItemById(item.Topic_id)}>
               {item.topic_id}
-              {item.image}
+              <div className="topic_image">{item.image}</div>
             </button>
           ))}
         </div>
