@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@slup/buttons": "^0.5.1",
-    "axios": "0.17.1",
+    "axios": "0.21.1",
     "material-ui": "^0.20.0",
     "react": "^16.10.2",
     "react-countdown-now": "^2.1.1",
